@@ -1,13 +1,13 @@
 import React, { useState } from "react"
 import { Text, View, KeyboardAvoidingView, SafeAreaView } from "react-native";
-import { Dimensions, Colors } from "../../../theme";
+import { Dimensions, Colors } from "@theme/";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup"
 import auth from "@react-native-firebase/auth"
 import { showMessage, hideMessage } from "react-native-flash-message";
 
-import authErrorMessageParser from "../../../utils/authErrorMessageParser";
+import authErrorMessageParser from "@utils/authErrorMessageParser";
 import Button from "../components/button";
 import Input from "../components/input";
 const Icon = styled.Image`
