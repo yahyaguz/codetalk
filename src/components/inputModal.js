@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import { Modal, View } from "react-native"
-import { Colors, Dimensions } from "../theme";
+import { Colors, Dimensions } from "@theme";
 
 const Cotainer = styled.View`
     backgroundColor: #ADC5CF;
     width: 96%;
-    height: 18%;
+    minHeight: 18%;
     bottom: 0px;
     position: absolute;
     paddingTop:15px;
@@ -54,15 +54,15 @@ const ButtonText = styled.Text`
     fontWeight: bold;
 `;
 
-export default InputModal = ({ visible = false, placeholder, buttonText, onClose, onSend, ...props }) => {
+export default InputModal = ({ visible = false, placeholder, buttonText, onClose, onCreateRoom, ...props }) => {
 
     const [text, setText] = useState('')
 
-    const handleSend = () => {
+    const handleCreateRoom = () => {
         if (!text) {
             return;
         }
-        onSend(text);
+        onCreateRoom(text);
         setText(null);
     }
 
@@ -84,7 +84,7 @@ export default InputModal = ({ visible = false, placeholder, buttonText, onClose
                     autoCapitalize="none"
                     {...props}
                 />
-                <Button>
+                <Button onPress={handleCreateRoom}>
                     <ButtonText>{buttonText}</ButtonText>
                 </Button>
             </Cotainer>
