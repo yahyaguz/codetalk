@@ -48,7 +48,7 @@ function Messages({ navigation, route }) {
 
     return (
         <Container>
-            <Header title={room.name} />
+            <Header title={room.name} navigation={navigation} />
             <FlatList
                 data={contentList}
                 renderItem={renderContent}

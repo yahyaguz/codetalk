@@ -21,6 +21,12 @@ const Container = styled.View`
     height: 100%;
 `;
 
+const Icon = styled.Image`
+    tintColor: white;
+    resizeMode: contain;
+    width: 35px;
+`;
+
 export function Rooms({ navigation }) {
     const [inputModalVisible, setInputModalVisible] = useState(false);
     const [rooms, setRooms] = useState([]);
@@ -54,7 +60,14 @@ export function Rooms({ navigation }) {
     }
     return (
         <Container>
-            <Header title="Odalar" />
+            <Header
+                title="Odalar"
+                rightItem={
+                    <AnimatedButton onPress={() => auth().signOut()}>
+                        <Icon source={(require("@assets/images/logout.png"))} />
+                    </AnimatedButton>
+                }
+            />
             <InputModal
                 placeholder="Oda ismi giriniz..."
                 buttonText="Oda Ekle"

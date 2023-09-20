@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Colors } from "@theme";
+import AnimatedButton from "./animatedButton";
 
 const Container = styled.View`
     width: 100%;
@@ -12,18 +13,17 @@ const Container = styled.View`
 `;
 
 const RightContainer = styled.View`
-    width: 30%;
     height: 52px;
-    backgroundColor: red;
+    backgroundColor: ${Colors.DARK_BLUE};
     flexDirection: row;
     position: absolute;
     right: 0px;
     alignItems: center;
 `;
-const LeftContainer = styled.View`
-    width: 30%;
+
+const LeftContainer = styled(AnimatedButton)`
     height: 52px;
-    backgroundColor: red;
+    backgroundColor: ${Colors.DARK_BLUE};
     flexDirection: row;
     position: absolute;
     left: 0px;
@@ -36,20 +36,25 @@ const Title = styled.Text`
     fontWeight: bold;
     color: white;
 `;
+
 const Icon = styled.Image`
-    width:30px;
+    width: 25px;
     resizeMode: contain;
-    marginLeft:5px;
+    marginLeft: 5px;
+    tintColor: white;
 `;
-export default Header = ({ title, rightItem, ...props }) => {
+
+export default Header = ({ title, rightItem, navigation, ...props }) => {
     return (
         <Container {...props}>
-            <LeftContainer>
-                <Icon source={require("../assets/images/left-arrow.png")} />
+            <LeftContainer onPress={() => navigation?.goBack()} style={{ justifyContent: "flex-start" }}>
+                {
+                    navigation && <Icon source={require("../assets/images/left-arrow.png")} />
+                }
             </LeftContainer>
             <Title>{title}</Title>
             <RightContainer>
-                {rightItem} 
+                {rightItem}
             </RightContainer>
         </Container>
     )

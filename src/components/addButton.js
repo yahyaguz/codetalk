@@ -13,13 +13,14 @@ const Container = styled.TouchableOpacity`
     backgroundColor: ${Colors.DARK_GREEN};
 `;
 const Icon = styled.Image`
+    tintColor: white;
 `;
 
-export default AddButton = ({onPress, ...props }) => {
+export default AddButton = ({ onPress, ...props }) => {
 
     return (
         <Container onPress={onPress} {...props}>
-            <Icon tintColor="white" source={(require("@assets/images/plus.png"))} />
+            <Icon source={(require("@assets/images/plus.png"))} />
         </Container>
     )
 }

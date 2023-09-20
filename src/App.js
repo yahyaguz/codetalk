@@ -8,10 +8,20 @@ import Rooms from './screens/rooms';
 import Messages from './screens/messages';
 import FlashMessage from 'react-native-flash-message';
 import { Colors } from './theme';
+import auth from "@react-native-firebase/auth"
 
 const Stack = createStackNavigator();
 
 function App() {
+
+    const [user, setUser] = useState();
+
+    useEffect(() => {
+        auth().onAuthStateChanged(user => {
+            setUser(!!user);
+        });
+    }, [])
+
     const AuthStack = () => {
         return (
             <Stack.Navigator screenOptions={{ headerShown: false }} >
@@ -32,8 +42,11 @@ function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="MessageStack" component={MessageStack} />
-                <Stack.Screen name="AuthStack" component={AuthStack} />
+                {
+
+                    !user ? <Stack.Screen name="AuthStack" component={AuthStack} />
+                        : <Stack.Screen name="MessageStack" component={MessageStack} />
+                }
             </Stack.Navigator>
             <StatusBar backgroundColor={Colors.DARK_BLUE} />
             <FlashMessage position="top" />
