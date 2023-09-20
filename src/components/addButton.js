@@ -10,7 +10,7 @@ const Container = styled.TouchableOpacity`
     bottom:15px;
     position:absolute;
     borderRadius: 25px;
-    backgroundColor: #2DBFA9;
+    backgroundColor: ${Colors.DARK_GREEN};
 `;
 const Icon = styled.Image`
 `;

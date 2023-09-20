@@ -6,9 +6,11 @@ const TouchableArea = styled.Pressable`
     minWidth: 48px;
     minHeight: 48px;
     backgroundColor: transparent;
+    justifyContent: center;
+    alignItemns: center;
 `;
 
-const AnimatedButton = ({ children, onPress, value = 0.95 }) => {
+const AnimatedButton = ({ children, onPress, value = 0.90, style, ...props }) => {
     const scaleValue = new Animated.Value(1)
 
     const onPressIn = () => {
@@ -25,15 +27,17 @@ const AnimatedButton = ({ children, onPress, value = 0.95 }) => {
             useNativeDriver: true,
         }).start();
     }
-    console.log(scaleValue)
     return (
         <TouchableArea
             onPress={onPress}
             onPressIn={onPressIn}
-            onPressOut={onPressOut}>
+            onPressOut={onPressOut}
+            style={style}
+        >
             <Animated.View
                 style={{
                     transform: [{ scale: scaleValue }],
+
                 }}
             >
                 {children}

@@ -5,6 +5,7 @@ import { SafeAreaView, View, StatusBar } from 'react-native';
 import Login from './screens/authScreens/login';
 import Sign from './screens/authScreens/signup';
 import Rooms from './screens/rooms';
+import Messages from './screens/messages';
 import FlashMessage from 'react-native-flash-message';
 import { Colors } from './theme';
 
@@ -23,6 +24,7 @@ function App() {
         return (
             <Stack.Navigator screenOptions={{ headerShown: false }} >
                 <Stack.Screen name="RoomsScreen" component={Rooms} />
+                <Stack.Screen name="MessagesScreen" component={Messages} />
             </Stack.Navigator>
         );
     };

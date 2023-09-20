@@ -21,7 +21,7 @@ const Container = styled.View`
     height: 100%;
 `;
 
-export function Rooms() {
+export function Rooms({ navigation }) {
     const [inputModalVisible, setInputModalVisible] = useState(false);
     const [rooms, setRooms] = useState([]);
 
@@ -65,7 +65,7 @@ export function Rooms() {
 
             <FlatList
                 data={rooms}
-                renderItem={({ item }) => <Room room={item} width={itemWidth} margin={itemMargin / 2} />}
+                renderItem={({ item }) => <Room room={item} width={itemWidth} margin={itemMargin / 2} onPress={() => navigation.navigate("MessagesScreen", { room: item })} />}
                 numColumns="3"
                 style={{ padding: itemMargin / 2 }}
             />
