@@ -9,7 +9,8 @@ import Header from "@components/header";
 import AddButton from "@components/addButton";
 import InputModal from "@components/inputModal";
 import utilParseContentData from "@utils/utilParseData";
-import { FlatList } from "react-native";
+import { FlatList, Text } from "react-native";
+import AnimatedButton from "../../components/animatedButton";
 
 const columns = 3;
 const itemMargin = 10;
