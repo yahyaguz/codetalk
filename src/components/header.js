@@ -14,7 +14,6 @@ const Container = styled.View`
 
 const RightContainer = styled.View`
     height: 52px;
-    backgroundColor: ${Colors.DARK_BLUE};
     flexDirection: row;
     position: absolute;
     right: 0px;
@@ -23,7 +22,6 @@ const RightContainer = styled.View`
 
 const LeftContainer = styled(AnimatedButton)`
     height: 52px;
-    backgroundColor: ${Colors.DARK_BLUE};
     flexDirection: row;
     position: absolute;
     left: 0px;
