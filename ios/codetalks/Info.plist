@@ -54,6 +54,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>CascadiaCode.ttf</string>
+		<string>consola.ttf</string>
+		<string>consolai.ttf</string>
 	</array>
 </dict>
 </plist>
