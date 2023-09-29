@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { View, Text, FlatList, Image } from "react-native"
+import { FlatList, Image } from "react-native"
 import auth from "@react-native-firebase/auth";
 import database from "@react-native-firebase/database";
 import utilParseData from "@utils/utilParseData";
 import Message from "./message";
 import Input from "./input";
-import AddButton from "../../components/addButton";
-import Header from "../../components/header";
-
-const Container = styled.View`
-    width: 100%;
-    height: 100%;
-    backgroundColor:blue;
-    alignItems: center;
-`;
+import ScreenWrapper from "@components/screenWrapper";
 
 function Messages({ navigation, route }) {
 
-    const room = route.params.room;
-    const [contentList, setContentList] = useState([]);
+    let listViewRef;
+    const room = route?.params?.room;
+    const [contentList, setContentList] = useState(null);
 
     useEffect(() => {
         database()
@@ -36,30 +28,36 @@ function Messages({ navigation, route }) {
 
         const contentObject = {
             text: content,
-            username: userMail.split('@')[0],
+            username: userMail?.split('@')[0],
             date: new Date().toISOString(),
+            type: "message",
         }
-
         database().ref(`rooms/${room?.id}/messages/`).push(contentObject);
+        if (listViewRef) {
+            listViewRef.scrollToEnd({ animated: true });
+        }
     }
 
-    const renderContent = ({ item }) => <Message message={item} />
-
-
     return (
-        <Container>
-            <Header title={room.name} navigation={navigation} />
+        <ScreenWrapper title={room?.name} navigation={navigation} >
             <FlatList
                 data={contentList}
-                renderItem={renderContent}
+                renderItem={({ item, index }) => <Message message={item} key={index} />}
+                keyExtractor={(item) => `message-${item?.id}`}
                 scrollEnabled={true}
+                showsVerticalScrollIndicator={false}
+                ref={(ref) => {
+                    listViewRef = ref;
+                }}
+                onContentSizeChange={() => listViewRef.scrollToEnd({ animated: true })}
+                onLayout={() => listViewRef.scrollToEnd({ animated: true })}
             />
             <Input
                 buttonComponent={<Image source={require("@assets/images/send.png")} />}
                 placeholder=" Mesaj"
                 sendMessage={sendContent}
             />
-        </Container>
+        </ScreenWrapper>
     )
 }
 export default Messages;

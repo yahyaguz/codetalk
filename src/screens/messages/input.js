@@ -4,10 +4,12 @@ import { Colors } from "@theme";
 import AnimatedButton from "@components/animatedButton";
 
 const Container = styled.View`
+    width: 100%;
     flexDirection: row;
-    justifyContent: center;
+    justifyContent: space-between;
     alignItems: center;
     marginVertical: 10px;
+    paddingHorizontal: 10px;
 `;
 
 const TextInput = styled.TextInput`
@@ -15,12 +17,13 @@ const TextInput = styled.TextInput`
     width: 85%;
     height: 40px;
     borderRadius: 15px;
-    backgroundColor: ${Colors.OFF_WHITE};
-    borderColor: ${Colors.DARK_GREEN};
+    backgroundColor: ${Colors.SOFT_GRAY};
+    borderColor: ${Colors.DARK_BLUE};
+    borderWidth: 0.5px;
 `;
 
 const Icon = styled.Image`
-    tintColor: ${Colors.DARK_GREEN};
+    tintColor: ${Colors.DARK_BLUE};
 `;
 
 export default Input = ({ buttonComponent, sendMessage, ...props }) => {
