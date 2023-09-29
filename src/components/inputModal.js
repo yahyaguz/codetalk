@@ -4,16 +4,16 @@ import { Modal, View } from "react-native"
 import { Colors, Dimensions } from "@theme";
 
 const Cotainer = styled.View`
-    backgroundColor: #ADC5CF;
+    backgroundColor: #7d8bae;
     width: 96%;
     minHeight: 18%;
     bottom: 0px;
     position: absolute;
     paddingTop:15px;
-    borderTopRightRadius:15px;
-    borderTopLeftRadius:30px;
-    borderBottomLeftRadius:15px;
-    borderBottomRightRadius:30px;
+    borderTopRightRadius: 20px;
+    borderTopLeftRadius: 20px;
+    borderBottomLeftRadius: 20px;
+    borderBottomRightRadius: 20px;
     alignSelf: center;
     marginBottom: 10px;
 `;
@@ -26,9 +26,7 @@ const BlurBackground = styled.Pressable`
 const Input = styled.TextInput`
     fontSize: 12px;
     color: black;
-    borderWidth: 0.5px;
-    borderColor: #D9d9da;
-    backgroundColor: #E4E4E4;
+    backgroundColor: #e8e3ec;
     borderRadius: 8px;
     margin: 10px;
     height: 42px;
@@ -42,10 +40,10 @@ const Button = styled.TouchableOpacity`
     alignItems: center;
     margin: 10px;
     paddingVertical: 5px;
-    borderTopRightRadius: 10px;
-    borderTopLeftRadius: 10px;
-    borderBottomLeftRadius: 10px;
-    borderBottomRightRadius:30px;
+    borderTopRightRadius: 15px;
+    borderTopLeftRadius: 15px;
+    borderBottomLeftRadius: 15px;
+    borderBottomRightRadius:15px;
 `;
 
 const ButtonText = styled.Text`

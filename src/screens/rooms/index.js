@@ -5,21 +5,15 @@ import auth from "@react-native-firebase/auth"
 
 import Room from "./room";
 import { Colors, Dimensions } from "@theme";
-import Header from "@components/header";
-import AddButton from "@components/addButton";
 import InputModal from "@components/inputModal";
 import utilParseContentData from "@utils/utilParseData";
-import { FlatList, Text } from "react-native";
+import { FlatList } from "react-native";
 import AnimatedButton from "../../components/animatedButton";
+import ScreenWrapper from "@components/screenWrapper";
 
 const columns = 3;
 const itemMargin = 10;
 const itemWidth = (Dimensions.SCREEN_WIDTH - (itemMargin * (columns + 1))) / columns;
-
-const Container = styled.View`
-    backgroundColor: ${Colors.SOFT_GRAY};
-    height: 100%;
-`;
 
 const Icon = styled.Image`
     tintColor: white;
@@ -27,11 +21,25 @@ const Icon = styled.Image`
     width: 35px;
 `;
 
+const ListEmpty = styled.View`
+    backgroundColor: ${Colors.BLUE};
+    width: ${Dimensions.SCREEN_WIDTH - 70}px;
+    alignItems: center;
+    marginTop: 20px;
+    borderRadius: 15px;
+`;
+
+const Title = styled.Text`
+    fontSize: 16px;
+    color: black;
+    fontFamily: consolai;
+
+`;
+
 export function Rooms({ navigation }) {
+
     const [inputModalVisible, setInputModalVisible] = useState(false);
     const [rooms, setRooms] = useState([]);
-
-
 
     useEffect(() => {
         database().ref("rooms/").on("value", snapshot => {
@@ -40,8 +48,6 @@ export function Rooms({ navigation }) {
         })
     }, [])
 
-    console.log(rooms)
-
     const createRoom = (roomName) => {
         const userMail = auth().currentUser.email;
 
@@ -49,25 +55,26 @@ export function Rooms({ navigation }) {
             name: roomName,
             createdBy: userMail.split('@')[0],
             date: new Date().toISOString(),
+            type: "room",
         }
 
         database().ref("rooms/").push(roomObject);
     }
-
+    console.log(rooms)
     const handleCreateRoom = (roomName) => {
         setInputModalVisible(false)
         createRoom(roomName)
     }
     return (
-        <Container>
-            <Header
-                title="Odalar"
-                rightItem={
-                    <AnimatedButton onPress={() => auth().signOut()}>
-                        <Icon source={(require("@assets/images/logout.png"))} />
-                    </AnimatedButton>
-                }
-            />
+        <ScreenWrapper
+            title="Sohbet Odaları"
+            rightItem={
+                <AnimatedButton onPress={() => auth().signOut()}>
+                    <Icon source={(require("@assets/images/logout.png"))} />
+                </AnimatedButton>
+            }
+        >
+
             <InputModal
                 placeholder="Oda ismi giriniz..."
                 buttonText="Oda Ekle"
@@ -77,13 +84,15 @@ export function Rooms({ navigation }) {
             />
 
             <FlatList
-                data={rooms}
-                renderItem={({ item }) => <Room room={item} width={itemWidth} margin={itemMargin / 2} onPress={() => navigation.navigate("MessagesScreen", { room: item })} />}
+                data={[{ name: "Oda Ekle" }, ...rooms]}
+                renderItem={({ item, index }) => index === 0 ?
+                    <Room room={item} width={itemWidth} addRoom margin={itemMargin / 2} onPress={() => setInputModalVisible(true)} />
+                    : <Room room={item} width={itemWidth} margin={itemMargin / 2} onPress={() => navigation.navigate("MessagesScreen", { room: item })} />}
+                ListEmptyComponent={<ListEmpty><Title>Sağ alttaki butondan oda ekleyebilirsiniz</Title></ListEmpty>}
                 numColumns="3"
                 style={{ padding: itemMargin / 2 }}
             />
-            <AddButton onPress={() => setInputModalVisible(true)} />
-        </Container>
+        </ScreenWrapper>
     )
 }
 
