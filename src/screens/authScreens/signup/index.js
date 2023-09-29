@@ -1,15 +1,17 @@
 import React, { useState } from "react"
-import { Text, View, KeyboardAvoidingView, SafeAreaView } from "react-native";
-import { Dimensions, Colors } from "@theme/";
+import { View } from "react-native";
+import { Colors } from "@theme/";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup"
 import auth from "@react-native-firebase/auth"
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 
 import authErrorMessageParser from "@utils/authErrorMessageParser";
 import Button from "../components/button";
 import Input from "../components/input";
+import ScreenWrapper from "@components/screenWrapper";
+
 const Icon = styled.Image`
     tintColor: ${Colors.DARK_BLUE};
 `;
@@ -19,7 +21,9 @@ const InputContainer = styled.View`
 `;
 const Title = styled.Text`
     fontSize:80px;
-    fontWeight:bold;
+    fontFamily:CascadiaCode;
+    textAlign:center;
+    color: #1f1f1f;
 `;
 
 const TextError = styled.Text`
@@ -27,6 +31,7 @@ const TextError = styled.Text`
     fontWeight: 500;
     color: red;
     marginHorizontal: 20px;
+    top: -5px;
 `;
 
 const initialFormValues = {
@@ -77,13 +82,15 @@ function Signup({ navigation }) {
     }
 
     return (
-        <View style={{ height: Dimensions.SCREEN_HEIGHT, backgroundColor: Colors.SOFT_GRAY }}>
-            <Title>Buraya da Logo gelecek</Title>
+        <ScreenWrapper scrollViewEnabled verticalCentered>
+
+            <Title style={{ lineHeight: 80 }}>{"</>"}</Title>
+            <Title style={{ fontSize: 24, fontWeight: "bold", lineHeight: 24, marginBottom: 40 }}>CodeTalks</Title>
             <Formik initialValues={initialFormValues} validationSchema={validation} onSubmit={handleFormSubmit}>
                 {({ values, handleChange, handleSubmit, errors, touched, handleBlur }) => (
                     <InputContainer>
                         <Input
-                            icon={<Icon source={require("../../../assets/images/mail.png")} />}
+                            icon={<Icon source={require("@assets/images/mail.png")} />}
                             placeholder="E-Posta"
                             onTouchStart={handleBlur("usermail")}
                             onChangeText={handleChange('usermail')}
@@ -92,7 +99,7 @@ function Signup({ navigation }) {
                         />
                         {touched.usermail && errors.usermail && <TextError>{errors.usermail}</TextError>}
                         <Input
-                            icon={<Icon source={require("../../../assets/images/lock.png")} />}
+                            icon={<Icon source={require("@assets/images/lock.png")} />}
                             placeholder="Şifre"
                             onTouchStart={handleBlur("password")}
                             onChangeText={handleChange('password')}
@@ -101,7 +108,7 @@ function Signup({ navigation }) {
                         />
                         {touched.password && errors.password && <TextError>{errors.password}</TextError>}
                         <Input
-                            icon={<Icon source={require("../../../assets/images/lock.png")} />}
+                            icon={<Icon source={require("@assets/images/lock.png")} />}
                             placeholder="Şifre Tekrar"
                             onTouchStart={handleBlur("repassword")}
                             onChangeText={handleChange('repassword')}
@@ -109,12 +116,14 @@ function Signup({ navigation }) {
                         />
                         {touched.repassword && errors.repassword && <TextError>{errors.repassword}</TextError>}
 
+                        <View style={{ height: 20 }} />
+
                         <Button title="Kayıt Ol" onPress={handleSubmit} loading={loading} />
                         <Button title="Geri" onPress={() => navigation.navigate("LoginScreen")} />
                     </InputContainer>
                 )}
             </Formik>
-        </View>
+        </ScreenWrapper>
     )
 
 }

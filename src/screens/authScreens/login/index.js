@@ -1,25 +1,30 @@
 import React, { useState } from "react"
-import { Text, View, KeyboardAvoidingView, SafeAreaView } from "react-native";
-import { Dimensions, Colors } from "@theme/";
+import { View } from "react-native";
+import { Colors } from "@theme/";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup"
 import auth from "@react-native-firebase/auth"
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 
 import authErrorMessageParser from "@utils/authErrorMessageParser";
 import Button from "../components/button";
 import Input from "../components/input";
+import ScreenWrapper from "@components/screenWrapper";
 const Icon = styled.Image`
     tintColor: ${Colors.DARK_BLUE};
 `;
+
 const InputContainer = styled.View`
     justifyContent: center;
     alignItems: center;
 `;
+
 const Title = styled.Text`
-    fontSize:80px;
-    fontWeight:bold;
+    fontSize: 80px;
+    fontFamily: CascadiaCode;
+    textAlign: center;
+    color: #1f1f1f;
 `;
 
 const TextError = styled.Text`
@@ -27,6 +32,7 @@ const TextError = styled.Text`
     fontWeight: 500;
     color: red;
     marginHorizontal: 20px;
+    top: -5px;
 `;
 
 const initialFormValues = {
@@ -73,12 +79,10 @@ function Login({ navigation }) {
         }
     }
 
-
-
-
     return (
-        <View style={{ height: Dimensions.SCREEN_HEIGHT, backgroundColor: Colors.SOFT_GRAY }}>
-            <Title>Logo Burada Olacak</Title>
+        <ScreenWrapper scrollViewEnabled verticalCentered>
+            <Title style={{ lineHeight: 80 }}>{"</>"}</Title>
+            <Title style={{ fontSize: 24, fontWeight: "bold", lineHeight: 24, marginBottom: 40 }}>CodeTalks</Title>
             <Formik
                 initialValues={initialFormValues}
                 onSubmit={handleFormSubmit}
@@ -88,7 +92,7 @@ function Login({ navigation }) {
 
                     <InputContainer>
                         <Input
-                            icon={<Icon source={require("../../../assets/images/mail.png")} />}
+                            icon={<Icon source={require("@assets/images/mail.png")} />}
                             placeholder="E-Posta"
                             onTouchStart={handleBlur("usermail")}
                             onChangeText={handleChange('usermail')}
@@ -97,7 +101,7 @@ function Login({ navigation }) {
                         />
                         {touched.usermail && errors.usermail && <TextError>{errors.usermail}</TextError>}
                         <Input
-                            icon={<Icon source={require("../../../assets/images/lock.png")} />}
+                            icon={<Icon source={require("@assets/images/lock.png")} />}
                             placeholder="Şifre"
                             onTouchStart={handleBlur("password")}
                             onChangeText={handleChange('password')}
@@ -105,13 +109,13 @@ function Login({ navigation }) {
                             secureTextEntry={true}
                         />
                         {touched.password && errors.password && <TextError>{errors.password}</TextError>}
-
+                        <View style={{ height: 20 }} />
                         <Button title="Giriş Yap" onPress={handleSubmit} loading={loading} />
                         <Button title="Kayıt Ol" onPress={handleSignup} />
                     </InputContainer>
                 )}
             </Formik>
-        </View>
+        </ScreenWrapper>
     )
 }
 export default Login;

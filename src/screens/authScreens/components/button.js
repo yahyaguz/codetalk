@@ -10,7 +10,7 @@ const Container = styled.TouchableOpacity`
     margin: 5px;
     justifyContent: center;
     alignItems: center;
-    borderRadius:3px;
+    borderRadius: 15px;
 `;
 const Title = styled.Text`
     fontSize: 16px;
