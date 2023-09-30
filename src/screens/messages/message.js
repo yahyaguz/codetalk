@@ -12,7 +12,7 @@ const Container = styled.View`
 
 const InnerContainer = styled.View`
     minWidth: 40%;
-    backgroundColor: ${Colors.BLUE};
+    backgroundColor: ${Colors.BLUE}F2;
     marginVertical: 5px;
     marginHorizontal: 10px;
     borderRadius: 10px;
@@ -47,7 +47,7 @@ const Triangle = styled.View`
     borderBottomWidth: 15px;
     borderTopColor: transparent;
     borderRightColor: transparent;
-    borderBottomColor: ${Colors.BLUE};
+    borderBottomColor: ${Colors.BLUE}F2;
     transform: rotate(100deg) ${({ messageBy }) => messageBy ? "scaleX(-1)" : null};
     marginHorizontal: 15px;
     top:-8px;
