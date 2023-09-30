@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { ActivityIndicator } from "react-native"
 import styled from "styled-components";
 import database from '@react-native-firebase/database';
 import auth from "@react-native-firebase/auth"
@@ -40,11 +41,13 @@ export function Rooms({ navigation }) {
 
     const [inputModalVisible, setInputModalVisible] = useState(false);
     const [rooms, setRooms] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         database().ref("rooms/").on("value", snapshot => {
             const parsedData = utilParseContentData(snapshot.val());
             setRooms(parsedData);
+            setLoading(false)
         })
     }, [])
 
@@ -60,11 +63,17 @@ export function Rooms({ navigation }) {
 
         database().ref("rooms/").push(roomObject);
     }
-    console.log(rooms)
+    console.log(loading)
     const handleCreateRoom = (roomName) => {
         setInputModalVisible(false)
         createRoom(roomName)
     }
+
+    const renderRooms = ({ item, index }) => index === 0 ?
+        <Room room={item} width={itemWidth} addRoom margin={itemMargin / 2} onPress={() => setInputModalVisible(true)} />
+        : <Room room={item} width={itemWidth} margin={itemMargin / 2} onPress={() => navigation.navigate("MessagesScreen", { room: item })} />
+
+
     return (
         <ScreenWrapper
             title="Sohbet Odaları"
@@ -74,7 +83,6 @@ export function Rooms({ navigation }) {
                 </AnimatedButton>
             }
         >
-
             <InputModal
                 placeholder="Oda ismi giriniz..."
                 buttonText="Oda Ekle"
@@ -83,15 +91,16 @@ export function Rooms({ navigation }) {
                 onCreateRoom={handleCreateRoom}
             />
 
-            <FlatList
-                data={[{ name: "Oda Ekle" }, ...rooms]}
-                renderItem={({ item, index }) => index === 0 ?
-                    <Room room={item} width={itemWidth} addRoom margin={itemMargin / 2} onPress={() => setInputModalVisible(true)} />
-                    : <Room room={item} width={itemWidth} margin={itemMargin / 2} onPress={() => navigation.navigate("MessagesScreen", { room: item })} />}
-                ListEmptyComponent={<ListEmpty><Title>Sağ alttaki butondan oda ekleyebilirsiniz</Title></ListEmpty>}
-                numColumns="3"
-                style={{ padding: itemMargin / 2 }}
-            />
+            {
+                loading ? <ActivityIndicator color="white" size="large" />
+                    : <FlatList
+                        data={[{ name: "Oda Ekle" }, ...rooms]}
+                        renderItem={renderRooms}
+                        ListEmptyComponent={<ListEmpty><Title>Sağ alttaki butondan oda ekleyebilirsiniz</Title></ListEmpty>}
+                        numColumns="3"
+                        style={{ padding: itemMargin / 2 }}
+                    />
+            }
         </ScreenWrapper>
     )
 }
