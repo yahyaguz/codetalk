@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { ActivityIndicator } from "react-native"
-import styled from "styled-components";
-import database from '@react-native-firebase/database';
+import { ActivityIndicator, View, FlatList } from "react-native"
 import auth from "@react-native-firebase/auth"
+import database from '@react-native-firebase/database';
+import styled from "styled-components";
 
-import Room from "./room";
-import { Colors, Dimensions } from "@theme";
-import InputModal from "@components/inputModal";
 import utilParseContentData from "@utils/utilParseData";
-import { FlatList } from "react-native";
-import AnimatedButton from "../../components/animatedButton";
+import { Colors, Dimensions } from "@theme";
+
 import ScreenWrapper from "@components/screenWrapper";
+import Room from "./room";
+import InputModal from "@components/inputModal";
+import AnimatedButton from "@components/animatedButton";
 
 const columns = 3;
 const itemMargin = 10;
@@ -20,21 +20,6 @@ const Icon = styled.Image`
     tintColor: white;
     resizeMode: contain;
     width: 35px;
-`;
-
-const ListEmpty = styled.View`
-    backgroundColor: ${Colors.BLUE};
-    width: ${Dimensions.SCREEN_WIDTH - 70}px;
-    alignItems: center;
-    marginTop: 20px;
-    borderRadius: 15px;
-`;
-
-const Title = styled.Text`
-    fontSize: 16px;
-    color: black;
-    fontFamily: consolai;
-
 `;
 
 export function Rooms({ navigation }) {
@@ -84,7 +69,7 @@ export function Rooms({ navigation }) {
             }
         >
             <InputModal
-                placeholder="Oda ismi giriniz..."
+                placeholder=" Oda ismi giriniz..."
                 buttonText="Oda Ekle"
                 visible={inputModalVisible}
                 onClose={() => setInputModalVisible(false)}
@@ -92,11 +77,13 @@ export function Rooms({ navigation }) {
             />
 
             {
-                loading ? <ActivityIndicator color="white" size="large" />
+                loading ? <View style={{ height: Dimensions.SCREEN_HEIGHT, justifyContent: "center" }}>
+                    <ActivityIndicator color={Colors.DARK_BLUE} size="large" />
+                </View>
                     : <FlatList
                         data={[{ name: "Oda Ekle" }, ...rooms]}
+                        keyExtractor={(item) => `room-${item?.id}`}
                         renderItem={renderRooms}
-                        ListEmptyComponent={<ListEmpty><Title>Sağ alttaki butondan oda ekleyebilirsiniz</Title></ListEmpty>}
                         numColumns="3"
                         style={{ padding: itemMargin / 2 }}
                     />
