@@ -1,21 +1,19 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import { Modal, View } from "react-native"
+import { Modal } from "react-native"
 import { Colors, Dimensions } from "@theme";
 
 const Cotainer = styled.View`
-    backgroundColor: #7d8bae;
+    backgroundColor: ${Colors.BLUE}66;
     width: 96%;
-    minHeight: 18%;
+    height: 18%;
     bottom: 0px;
     position: absolute;
     paddingTop:15px;
-    borderTopRightRadius: 20px;
-    borderTopLeftRadius: 20px;
-    borderBottomLeftRadius: 20px;
-    borderBottomRightRadius: 20px;
+    borderRadius: 20px;
     alignSelf: center;
     marginBottom: 10px;
+    alignItems: center;
 `;
 const BlurBackground = styled.Pressable`
     width: ${Dimensions.SCREEN_WIDTH}px;
@@ -24,26 +22,24 @@ const BlurBackground = styled.Pressable`
 `;
 
 const Input = styled.TextInput`
+    width: 90%;
+    height: 42px;
     fontSize: 12px;
     color: black;
     backgroundColor: #e8e3ec;
-    borderRadius: 8px;
+    borderRadius: 20px;
     margin: 10px;
-    height: 42px;
 `;
 
 const Button = styled.TouchableOpacity`
-    borderWidth: 2px;
-    borderColor: ${Colors.DARK_BLUE};
+    width: 90%;
+    height: 35px;
     backgroundColor: ${Colors.DARK_BLUE};
     justifyContent: center;
     alignItems: center;
     margin: 10px;
     paddingVertical: 5px;
-    borderTopRightRadius: 15px;
-    borderTopLeftRadius: 15px;
-    borderBottomLeftRadius: 15px;
-    borderBottomRightRadius:15px;
+    borderRadius: 15px;
 `;
 
 const ButtonText = styled.Text`
@@ -52,7 +48,7 @@ const ButtonText = styled.Text`
     fontWeight: bold;
 `;
 
-export default InputModal = ({ visible = false, placeholder, buttonText, onClose, onCreateRoom, ...props }) => {
+export default InputModal = ({ visible, placeholder, buttonText, onClose, onCreateRoom, ...props }) => {
 
     const [text, setText] = useState('')
 
