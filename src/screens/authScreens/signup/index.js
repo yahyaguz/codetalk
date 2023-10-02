@@ -113,7 +113,8 @@ function Signup({ navigation }) {
                             onTouchStart={handleBlur("repassword")}
                             onChangeText={handleChange('repassword')}
                             value={values.repassword}
-                        />
+                            secureTextEntry={true}
+                        /> 
                         {touched.repassword && errors.repassword && <TextError>{errors.repassword}</TextError>}
 
                         <View style={{ height: 20 }} />
